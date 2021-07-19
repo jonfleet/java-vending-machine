@@ -31,4 +31,8 @@ public class Person {
         return true;
     }
 
+    public Product selectProduct(String slotLocation) {
+        return new Product();
+    }
+
 }

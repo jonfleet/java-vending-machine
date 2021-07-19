@@ -7,8 +7,11 @@ import java.util.Queue;
 public class VendingMachine {
 
     // Properties
-    public HashMap<String, Queue<Product>> Inventory = new HashMap<String, Queue<Product>>();
+    private HashMap<String, Queue<Product>> Inventory = new HashMap<String, Queue<Product>>();
 
+    // Getters
+    public HashMap<String, Queue<Product>> getInventory() {return Inventory;}
+    // Constructors
     public boolean stockInventory() {
         String fileName = "vendingmachine.csv";
         //String directory = Environment.CurrentDirectory;
