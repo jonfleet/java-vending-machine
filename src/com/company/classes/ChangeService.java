@@ -1,5 +1,7 @@
 package com.company.classes;
 
+import java.math.BigDecimal;
+
 public class ChangeService {
 
     // Properties
@@ -9,20 +11,24 @@ public class ChangeService {
     private int[] ChangeList = new int[3];
 
     // Methods
-    public int[] getChange(double amount){
-        double total = amount;
-        while(total > 0.00)
+    public int[] getChange(BigDecimal amount){
+        BigDecimal total = amount;
+        BigDecimal zero = new BigDecimal("0.00");
+        BigDecimal nickel = new BigDecimal("0.05");
+        BigDecimal dime = new BigDecimal("0.10");
+        BigDecimal quarter = new BigDecimal("0.25");
+        while(total.compareTo(zero) > -1 )
         {
-            if(total >= 0.25){
-                // Add Quater to the List
+            if(total.compareTo(quarter) >= 0 ){
+                // Add Quarter to the List
                 Quarter++;
-                total -= 0.25;
-            } else if( total >= 0.10) {
+                total.subtract(quarter);
+            } else if( total.compareTo(dime) >= 0) {
                 Dime++;
-                total -= 0.10;
-            } else if(total  >= 0.05){
+                total.subtract(dime);
+            } else if(total.compareTo(nickel) >= 0){
                 Nickel++;
-                total -= 0.05;
+                total.subtract(nickel);
             } else {
                 break;
             }

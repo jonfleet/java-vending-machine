@@ -1,15 +1,17 @@
 package com.company.classes;
 
+import java.math.BigDecimal;
+
 public class Product {
     private String SlotLocation;
     private String Name;
-    private Double Price;
+    private BigDecimal Price;
     private String Type;
-    private String FunnyMessage;
+    protected String FunnyMessage;
     // Getters
     public String getName(){return Name;};
     public String getSlotLocation(){return SlotLocation;};
-    public Double getPrice(){return Price;}
+    public BigDecimal getPrice(){return Price;}
     public String getType(){return Type;};
     public String getFunnyMessage() {return FunnyMessage;};
 
@@ -18,7 +20,7 @@ public class Product {
     // Constructors
     public Product(){}
 
-    public Product(String slotLocation, String name, Double price, String type ){
+    public Product(String slotLocation, String name, BigDecimal price, String type ){
         SlotLocation = slotLocation;
         Name = name;
         Price = price;

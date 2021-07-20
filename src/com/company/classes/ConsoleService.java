@@ -2,6 +2,7 @@ package com.company.classes;
 
 import java.io.Console;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.util.*;
 
 public class ConsoleService {
@@ -61,7 +62,7 @@ public class ConsoleService {
             System.out.println("2) Select Product");
             System.out.println("3) Finish Transaction");
             System.out.println("");
-            System.out.println("Current Balance is " + User.GetBalance());
+            System.out.println("Current Balance is " + User.getBalance());
             System.out.println("");
             System.out.println("Current Cart Total is " + User.getCartTotal());
             System.out.println("");
@@ -83,8 +84,9 @@ public class ConsoleService {
 
             } else if(userSelection.equals("2")){
                 selectProductConsole();
+
             } else if(userSelection.equals("3")){
-                //finishTransactionConsole();
+                finishTransactionConsole();
                 break;
             }
         }
@@ -106,7 +108,7 @@ public class ConsoleService {
                     userSelection = "n";
                 }
 
-                if(!User.AddBalance(userInput)){
+                if(!User.addBalance(userInput)){
                     System.out.println("Invalid Entry. Please Try Again.");
                 } else {
                     break;
@@ -137,6 +139,13 @@ public class ConsoleService {
         System.out.println(" " + column1 + "  " + column2 + "  " + column3 + "  " + column4 + "  ");
 
         // Foreach through the HashMap<>;
+        for(HashMap.Entry<String, Queue<Product>> pair : manifest.entrySet()){
+            Product product = pair.getValue().peek();
+            int queueSize = pair.getValue().size();
+            String quantity = pair.getValue().size() <= 0 ? "Sold out" : String.valueOf(queueSize);
+            System.out.println(product.getSlotLocation() + " " + product.getName() + " "
+                    + product.getPrice() + " " + quantity );
+        }
     }
 
     private boolean selectProductConsole(){
@@ -161,7 +170,24 @@ public class ConsoleService {
             System.out.println("");
             System.out.println(e.getMessage());
             System.out.println("");
-            return true;
+            return false;
         }
+    }
+
+    private void finishTransactionConsole(){
+        ChangeService change = new ChangeService();
+        int[] changeList = new int[3];
+
+        changeList = change.getChange(User.getBalance());
+
+        LogService logger = new LogService();
+        logger.LogBalanceDepositOrCashOut("GIVE CHANGE", User.getBalance(), new BigDecimal("0.00"));
+
+        User.closeOutAccount();
+
+        System.out.println("");
+        System.out.println("Thank you for shopping VendoMatic 800. Your change is: ");
+        System.out.println(changeList[0] + " quarters, " + changeList[1] + " dimes, and " + changeList[2] + " nickels");
+        System.out.println("");
     }
 }
