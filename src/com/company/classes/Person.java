@@ -17,6 +17,7 @@ public class Person {
     }
     // Getters
     public BigDecimal getCartTotal(){
+        calculateCartTotal(CartItems);
         return CartTotal;
     }
     public BigDecimal getBalance(){ return Balance; }
@@ -71,6 +72,15 @@ public class Person {
     public Boolean closeOutAccount(){
         Balance = new BigDecimal("0");
         CartItems = new ArrayList<Product>();
+        CartTotal = new BigDecimal("0");
         return true;
     }
+
+    private void calculateCartTotal(ArrayList<Product> products){
+        CartTotal = new BigDecimal("0.00");
+        for(Product product : products){
+            CartTotal = CartTotal.add(product.getPrice());
+        }
+    }
+
 }

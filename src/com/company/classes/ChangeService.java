@@ -22,13 +22,13 @@ public class ChangeService {
             if(total.compareTo(quarter) >= 0 ){
                 // Add Quarter to the List
                 Quarter++;
-                total.subtract(quarter);
+                total = total.subtract(quarter);
             } else if( total.compareTo(dime) >= 0) {
                 Dime++;
-                total.subtract(dime);
+                total = total.subtract(dime);
             } else if(total.compareTo(nickel) >= 0){
                 Nickel++;
-                total.subtract(nickel);
+                total = total.subtract(nickel);
             } else {
                 break;
             }
